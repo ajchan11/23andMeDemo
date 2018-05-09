@@ -16,7 +16,7 @@ export default (variables = variable) => {
   }
   const lightCommon = {
     'NativeBase.Text': {
-      color: variables.brandLight,
+      color: 'white',
     },
     'NativeBase.Icon': {
       color: variables.brandLight,
@@ -38,7 +38,7 @@ export default (variables = variable) => {
   }
   const successCommon = {
     'NativeBase.Text': {
-      color: variables.btnSuccessBg,
+      color: 'white',
     },
     'NativeBase.Icon': {
       color: variables.btnSuccessBg,

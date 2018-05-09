@@ -45,6 +45,7 @@ export default (variables = variable) => {
     },
     "NativeBase.Body": {
       flex: 1,
+      paddingBottom: 0,
       alignItems: "center",
       alignSelf: "center",
       flexDirection: "row",
@@ -64,7 +65,8 @@ export default (variables = variable) => {
         },
         ".full": {
           height: variables.footerHeight,
-          paddingBottom: variables.footerPaddingBottom,
+          paddingBottom: 0,
+          // paddingBottom: variables.footerPaddingBottom,
           flex: 1
         },
         ...iconCommon,
@@ -93,7 +95,7 @@ export default (variables = variable) => {
       },
       flex: 1,
       alignSelf: "center",
-      alignItems: "flex-end"
+      alignItems: "flex-end",
     },
     backgroundColor: variables.footerDefaultBg,
     flexDirection: "row",

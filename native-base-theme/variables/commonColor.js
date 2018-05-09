@@ -25,7 +25,7 @@ export default {
   badgePadding: platform === "ios" ? 3 : 0,
 
   // Button
-  btnFontFamily: platform === "ios" ? "System" : "Roboto",
+  btnFontFamily: platform === "ios" ? "System" : "Roboto_medium",
   btnDisabledBg: "#b5b5b5",
   buttonPadding: 6,
   get btnPrimaryBg() {
@@ -95,7 +95,7 @@ export default {
   checkboxTickColor: "#fff",
 
   // Color
-  brandPrimary: platform === "ios" ? "#007aff" : "#3F51B5",
+  brandPrimary: platform === "ios" ? "#D60D67" : "#3F51B5",
   brandInfo: "#62B1F6",
   brandSuccess: "#5cb85c",
   brandDanger: "#d9534f",
@@ -138,7 +138,7 @@ export default {
   searchBarHeight: platform === "ios" ? 30 : 40,
   searchBarInputHeight: platform === "ios" ? 30 : 50,
   toolbarBtnTextColor: platform === "ios" ? "#007aff" : "#fff",
-  iosStatusbar: "dark-content",
+  iosStatusbar: "light-content",
   toolbarDefaultBorder: platform === "ios" ? "#a7a6ab" : "#3F51B5",
   get statusBarColor() {
     return color(this.toolbarDefaultBg)

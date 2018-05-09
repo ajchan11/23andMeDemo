@@ -25,7 +25,7 @@ export default {
   badgePadding: platform === "ios" ? 3 : 0,
 
   // Button
-  btnFontFamily: platform === "ios" ? "System" : "Roboto",
+  btnFontFamily: platform === "ios" ? "System" : "Roboto_medium",
   btnDisabledBg: "#b5b5b5",
   buttonPadding: 6,
   get btnPrimaryBg() {
@@ -117,9 +117,9 @@ export default {
   },
 
   // Footer
-  footerHeight: isIphoneX ? 89 : 55,
+  footerHeight: 55,
   footerDefaultBg: platform === "ios" ? "#F8F8F8" : "#3F51B5",
-  footerPaddingBottom: isIphoneX ? 34 : 0,
+  footerPaddingBottom: 0,
 
   // FooterTab
   tabBarTextColor: platform === "ios" ? "#6b6b6b" : "#b3c7f9",
@@ -139,7 +139,7 @@ export default {
   searchBarInputHeight: platform === "ios" ? 30 : 50,
   toolbarBtnTextColor: platform === "ios" ? "#007aff" : "#fff",
   toolbarDefaultBorder: platform === "ios" ? "#a7a6ab" : "#3F51B5",
-  iosStatusbar: platform === "ios" ? "dark-content" : "light-content",
+  iosStatusbar: "light-content",
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
       .darken(0.2)

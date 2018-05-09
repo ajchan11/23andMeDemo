@@ -1,98 +1,107 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlatList, TouchableOpacity, RefreshControl, Image } from 'react-native';
-import { Container, Content, Card, CardItem, Body, Text, Button } from 'native-base';
+import { FlatList, TouchableOpacity, RefreshControl, Image, TouchableHighlight } from 'react-native';
+import { Container, Content, Card, CardItem, Body, Text, Button, H3 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import Loading from './Loading';
 import Error from './Error';
 import Header from './Header';
 import Spacer from './Spacer';
+import NotificationModal from './NotificationModal';
+import SurveyModal from './SurveyModal';
+import StudyCard from './StudyCard';
 
-const RecipeListing = ({
-  error,
-  loading,
-  recipes,
-  reFetch,
-}) => {
-  // Loading
-  if (loading) return <Loading />;
 
-  // Error
-  if (error) return <Error content={error} />;
+class RecipeListing extends React.Component {
+  static propTypes = {
+    error: PropTypes.string,
+    loading: PropTypes.bool.isRequired,
+    recipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+    reFetch: PropTypes.func,
+  }
 
-  const keyExtractor = item => item.id;
+  static defaultProps = {
+    error: null,
+    reFetch: null,
+  }
 
-  const onPress = item => Actions.recipe({ match: { params: { id: String(item.id) } } });
+  constructor(props) {
+    super(props);
+    this.state = {
+      notificationVisible: false,
+      surveyVisible: false,
+      activeSurvey: '',
+    }
+    this.toggleModal = this.toggleModal.bind(this)
+    this.toggleSurvey = this.toggleSurvey.bind(this)
+  }
 
-  return (
-    <Container>
-      <Content padder>
-        <Header
-          title="Top Recipes"
-          content="This is here to show how you can read and display data from a data source (in our case, Firebase)."
+  toggleModal = () => {
+    this.setState({notificationVisible: !this.state.notificationVisible});
+  }
+
+  toggleSurvey = (title) => {
+    this.setState({
+      surveyVisible: !this.state.surveyVisible,
+      activeSurvey: title,
+    });
+  }
+
+  render() {
+    // Loading
+    const { loading, error, recipes, reFetch } = this.props;
+    if (loading) return <Loading />;
+    // Error
+    if (error) return <Error content={error} />;
+
+    const keyExtractor = item => item.id;
+
+    const onPress = item => Actions.recipe({ match: { params: { id: String(item) } } });
+
+    return (
+      <Container>
+        <NotificationModal 
+          visible={this.state.notificationVisible}
+          toggleModal={this.toggleModal}
         />
-
-        <FlatList
-          numColumns={2}
-          data={recipes}
-          renderItem={({ item }) => (
-            <Card transparent style={{ paddingHorizontal: 6 }}>
-              <CardItem cardBody>
-                <TouchableOpacity onPress={() => onPress(item)} style={{ flex: 1 }}>
-                  <Image
-                    source={{ uri: item.image }}
-                    style={{
-                      height: 100,
-                      width: null,
-                      flex: 1,
-                      borderRadius: 5,
-                    }}
-                  />
-                </TouchableOpacity>
-              </CardItem>
-              <CardItem cardBody>
-                <Body>
-                  <Spacer size={10} />
-                  <Text style={{ fontWeight: '800' }}>{item.title}</Text>
-                  <Spacer size={15} />
-                  <Button
-                    block
-                    bordered
-                    small
-                    onPress={() => onPress(item)}
-                  >
-                    <Text>View Recipe</Text>
-                  </Button>
-                  <Spacer size={5} />
-                </Body>
-              </CardItem>
-            </Card>
-          )}
-          keyExtractor={keyExtractor}
-          refreshControl={
-            <RefreshControl
-              refreshing={loading}
-              onRefresh={reFetch}
-            />
-          }
+        <SurveyModal 
+          visible={this.state.surveyVisible}
+          toggleSurvey={this.toggleSurvey}
         />
+        <Content>
+          <Text style={{ color: '#6A6A6A', margin: 20}}>My Studies</Text>
+          {/* <TouchableHighlight
+            onPress={this.toggleModal}>
+            <Text>Show Modal</Text>
+          </TouchableHighlight> */}
 
-        <Spacer size={20} />
-      </Content>
-    </Container>
-  );
-};
+          <StudyCard
+            title={'Caffeine'}
+            text={'Joined April 5th, 2018'}
+            active={true}
+            move={() => this.toggleSurvey('Caffeine')}
+          />
+          <Text style={{color: '#6A6A6A', margin: 20}}>Join another Study</Text>
+          <StudyCard
+            title={'Lifestyle Observational'}
+            text={'Learn about how your lifestyle impacts your health'}
+            active={false}
+            move={() => this.toggleSurvey('Lifestyle Observational')}
+          />
+          <StudyCard
+            title={'Self-Guided Weight Loss Study'}
+            text={'Find a weight loss program tailored to you'}
+            active={false}
+            move={() => this.toggleSurvey('Self-Guided Weight Loss Study')}
+          />
 
-RecipeListing.propTypes = {
-  error: PropTypes.string,
-  loading: PropTypes.bool.isRequired,
-  recipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  reFetch: PropTypes.func,
-};
+          <Spacer size={20} />
+        </Content>
+      </Container>
+    );
 
-RecipeListing.defaultProps = {
-  error: null,
-  reFetch: null,
-};
+  }
+  
+}
 
 export default RecipeListing;

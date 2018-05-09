@@ -36,12 +36,20 @@ const Index = (
         key="tabbar"
         swipeEnabled
         type="replace"
-        showLabel={false}
+        showLabel={true}
         {...DefaultProps.tabProps}
       >
+       <Stack
+          key="recipes"
+          title="Studies"
+          icon={() => <Icon name="book" {...DefaultProps.icons} />}
+          {...DefaultProps.navbarProps}
+        >
+          <Scene key="recipes" component={RecipesContainer} Layout={RecipesComponent} />
+        </Stack>
         <Stack
           key="home"
-          title={AppConfig.appName.toUpperCase()}
+          title="Insights"
           icon={() => <Icon name="planet" {...DefaultProps.icons} />}
           {...DefaultProps.navbarProps}
         >
@@ -49,17 +57,16 @@ const Index = (
         </Stack>
 
         <Stack
-          key="recipes"
-          title="RECIPES"
-          icon={() => <Icon name="book" {...DefaultProps.icons} />}
+          key="notifications"
+          title="Notifications"
+          icon={() => <Icon name="contact" {...DefaultProps.icons} />}
           {...DefaultProps.navbarProps}
         >
-          <Scene key="recipes" component={RecipesContainer} Layout={RecipesComponent} />
+          <Scene key="profileHome" component={MemberContainer} Layout={ProfileComponent} />
         </Stack>
-
         <Stack
           key="profile"
-          title="PROFILE"
+          title="Profile"
           icon={() => <Icon name="contact" {...DefaultProps.icons} />}
           {...DefaultProps.navbarProps}
         >

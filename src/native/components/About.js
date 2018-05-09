@@ -6,7 +6,7 @@ const About = () => (
   <Container>
     <Content padder>
       <Spacer size={30} />
-      <H1>Heading 1</H1>
+      <H1>Heading Stuff</H1>
       <Spacer size={10} />
       <Text>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </Text>
 
