@@ -34,6 +34,7 @@ class RecipeListing extends React.Component {
     }
     this.toggleModal = this.toggleModal.bind(this)
     this.toggleSurvey = this.toggleSurvey.bind(this)
+    // setTimeout(this.toggleModal, 1000)
   }
 
   toggleModal = () => {
