@@ -3,73 +3,94 @@ import PropTypes from 'prop-types';
 import { View, Modal, TouchableOpacity, StyleSheet, Switch, Image } from 'react-native';
 import { Text, Button} from 'native-base';
 
-const NotificationModal = ({ visible, toggleModal }) => (
-    <Modal
-        animationType="slide"
-        transparent={true}
-        visible={visible}
-        onRequestClose={() => {
-            alert('Modal has been closed.');
-        }}>
-        <View style={{marginTop: 22, flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        backgroundColor:'rgba(0,0,0,0.2)',
-        alignItems: 'center'}}>
-            <View style={{width: 290, height: 450,  backgroundColor: 'white'}}>
-                <View style={{marginTop: 20, marginBottom: 30}}>
-                    <Text style={{color: '#6A6A6A', textAlign: 'center'}}>PERMISSIONS</Text>
-                    <TouchableOpacity
-                        style={{position: 'absolute', right: 10}}
-                        onPress={toggleModal}>
-                        <Image
-                            style={styles.closeButton}
-                            source={require('../../images/close.png')}
-                        />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.container}>
-                    <View style={styles.row}>
-                        <Text style={styles.noticeText}>APPLE HEALTH</Text>
-                        <View style={styles.switchBox}>
-                            <Switch
-                                style={styles.switch}
-                                // onValueChange = {switchHealth}
-                                value = {true}/>
+class NotificationModal extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            motion: false,
+            notice: false,
+            health: false
+        }
+        this.toggle = this.toggle.bind(this)
+      }
+
+      toggle(val) {
+        let hi = {}
+        hi[val] = !this.state[val]
+        this.setState(hi)
+      }
+
+      render() {
+          const {visible, toggleModal} = this.props
+          return (
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={visible}
+                onRequestClose={() => {
+                    alert('Modal has been closed.');
+                }}>
+                <View style={{marginTop: 22, flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                backgroundColor:'rgba(0,0,0,0.2)',
+                alignItems: 'center'}}>
+                    <View style={{width: 290, height: 450,  backgroundColor: 'white'}}>
+                        <View style={{marginTop: 20, marginBottom: 30}}>
+                            <Text style={{color: '#6A6A6A', textAlign: 'center'}}>PERMISSIONS</Text>
+                            <TouchableOpacity
+                                style={{position: 'absolute', right: 10}}
+                                onPress={toggleModal}>
+                                <Image
+                                    style={styles.closeButton}
+                                    source={require('../../images/close.png')}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.container}>
+                            <View style={styles.row}>
+                                <Text style={styles.noticeText}>APPLE HEALTH</Text>
+                                <View style={styles.switchBox}>
+                                    <Switch
+                                        style={styles.switch}
+                                        onValueChange = {() => this.toggle('health')}
+                                        value = {this.state.health}/>
+                                </View>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.noticeText}>NOTIFICATIONS</Text>
+                                <View style={styles.switchBox}>
+                                    <Switch
+                                        onValueChange = {() => this.toggle('notice')}
+                                        value = {this.state.notice}/>
+                                </View>
+                            </View>
+                            <View style={styles.row}>
+                                <Text style={styles.noticeText}>MOTION</Text>
+                                <View style={styles.switchBox}>
+                                <Switch
+                                    onValueChange = {() => this.toggle('motion')}
+                                    value = {this.state.motion}/>
+                                </View>
+                            </View>
+                            <View>
+                                <Button style={styles.success} block light onPress={toggleModal}>
+                                    <Text style={styles.successText}>Save</Text>
+                                </Button>
+                            </View>
+                        </View>
+                        <View style={styles.bottomBox}>
+                            <Image
+                                style={styles.notificationImage}
+                                source={require('../../images/notificationBottom.png')}
+                            />
                         </View>
                     </View>
-                    <View style={styles.row}>
-                        <Text style={styles.noticeText}>NOTIFICATIONS</Text>
-                        <View style={styles.switchBox}>
-                            <Switch
-                                // onValueChange = {switchHealth}
-                                value = {true}/>
-                        </View>
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.noticeText}>MOTION</Text>
-                        <View style={styles.switchBox}>
-                        <Switch
-                            // onValueChange = {switchHealth}
-                            value = {true}/>
-                        </View>
-                    </View>
-                    <View>
-                        <Button style={styles.success} block light onPress={() =>this.setIndex(3)}>
-                            <Text style={styles.successText}>Save</Text>
-                        </Button>
-                    </View>
                 </View>
-                <View style={styles.bottomBox}>
-                    <Image
-                        style={styles.notificationImage}
-                        source={require('../../images/notificationBottom.png')}
-                    />
-                </View>
-            </View>
-        </View>
-    </Modal>
-);
+            </Modal>
+          )
+      }
+}
 
 NotificationModal.propTypes = {
   message: PropTypes.string,

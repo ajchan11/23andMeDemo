@@ -28,21 +28,31 @@ import MemberContainer from '../../containers/Member';
 import ProfileComponent from '../components/Profile';
 
 import AboutComponent from '../components/About';
+import TabIcon from '../components/TabIcon'
+import TabIcon2 from '../components/TabIcon2'
+
+const test = (props) => {
+  console.log
+  return '#D60D67'
+}
 
 const Index = (
   <Stack>
     <Scene hideNavBar>
       <Tabs
         key="tabbar"
+        lazy={true}
         swipeEnabled
         type="replace"
-        showLabel={true}
+        activeBackgroundColor={'#D60D67'}
+        // showLabel={true}
         {...DefaultProps.tabProps}
+        
       >
        <Stack
           key="recipes"
           title="Studies"
-          icon={() => <Icon name="book" {...DefaultProps.icons} />}
+          icon={TabIcon}
           {...DefaultProps.navbarProps}
         >
           <Scene key="recipes" component={RecipesContainer} Layout={RecipesComponent} />
@@ -50,8 +60,8 @@ const Index = (
         <Stack
           key="home"
           title="Insights"
-          icon={() => <Icon name="planet" {...DefaultProps.icons} />}
-          {...DefaultProps.navbarProps}
+          icon={TabIcon2}
+          {...DefaultProps.insightProps}
         >
           <Scene key="home" component={AboutComponent} />
         </Stack>

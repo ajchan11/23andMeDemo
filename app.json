@@ -3,7 +3,17 @@
     "sdkVersion": "26.0.0",
     "name": "23andMe",
     "slug": "23andMe",
+    "splash": {
+      "image": "src/images/splash.png",
+      "resizeMode": "cover"
+    },
     "icon": "src/images/app-icon.png",
-    "privacy": "public"
+    "privacy": "public",
+    "ios": {
+      "bundleIdentifier": "com.swensonhe.23me"
+    },
+    "android": {
+      "package": "com.swensonhe.me23"
+    }
   }
 }

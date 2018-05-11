@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, } from 'native-base';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import Colors from '../../../native-base-theme/variables/commonColor';
 
 const cardStyle = (active) => {
     return {
         flex: 1, 
-        height: 100, 
+        height: active ? 140 : 100, 
         backgroundColor: 'white', 
         marginHorizontal: 5, 
         borderTopWidth: 5, 
@@ -41,8 +41,36 @@ const cardText = (active) => {
 
 const StudyCard = ({ active, title, text, move }) => (
     <TouchableOpacity style={cardStyle(active)} onPress={() => move()}>
+        <View style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%'}}>
+            {
+                active 
+                ?  <Image style={{
+                    flex: 1,
+                    resizeMode: 'cover',
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                    justifyContent: 'center',
+                    }}
+                    source={require('../../images/background.png')}
+                /> 
+                : null
+            }
+            
+        </View>
         <Text style={cardHeader(active)}>{title}</Text>
         <Text style={cardText(active)}>{text}</Text>
+        {
+            active
+            ? <Image style={{position: 'absolute', right: 5, height: 20, resizeMode: 'contain'}} source={require('../../images/arrow.png')}/>
+            : null
+        }
+        
     </TouchableOpacity>
 );
 
