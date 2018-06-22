@@ -16,6 +16,7 @@ class UpdateProfile extends React.Component {
       firstName: PropTypes.string,
       lastName: PropTypes.string,
       email: PropTypes.string,
+      query: PropTypes.string,
     }).isRequired,
   }
 
@@ -29,6 +30,7 @@ class UpdateProfile extends React.Component {
     this.state = {
       firstName: props.member.firstName || '',
       lastName: props.member.lastName || '',
+      query: props.member.query || '',
       email: props.member.email || '',
       password: '',
       password2: '',
@@ -71,6 +73,13 @@ class UpdateProfile extends React.Component {
           {success && <Messages message={success} type="success" />}
 
           <Form>
+            <Item stackedLabel>
+              <Label>Query String</Label>
+              <Input
+                value={this.state.query}
+                onChangeText={v => this.handleChange('query', v)}
+              />
+            </Item>
             <Item stackedLabel>
               <Label>First Name</Label>
               <Input

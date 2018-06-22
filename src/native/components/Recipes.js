@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, TouchableOpacity, RefreshControl, Image, TouchableHighlight, StyleSheet, Dimensions } from 'react-native';
-import { Container, Content, Card, CardItem, Body, Text, Button, H3, View } from 'native-base';
+import { Container, Content, Card, CardItem, Body, Text, Button, H3, View, Input, Item, Label } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import Loading from './Loading';
 import Error from './Error';
@@ -30,12 +30,17 @@ class RecipeListing extends React.Component {
     super(props);
     this.state = {
       notificationVisible: false,
-      surveyVisible: false,
+      surveyVisible1: false,
+      surveyVisible2: false,
       activeSurvey: '',
-      surveyComplete: false
+      surveyComplete: false,
+      count: 1,
+      query: '',
+      viewInput: false
     }
     this.toggleModal = this.toggleModal.bind(this)
-    this.toggleSurvey = this.toggleSurvey.bind(this)
+    this.toggleSurvey1 = this.toggleSurvey1.bind(this)
+    this.toggleSurvey2 = this.toggleSurvey2.bind(this)
     setTimeout(this.toggleModal, 1000)
   }
 
@@ -43,17 +48,49 @@ class RecipeListing extends React.Component {
     this.setState({notificationVisible: !this.state.notificationVisible});
   }
 
-  toggleSurvey = (index) => {
-    if (index > 5) {
+  toggleQuery = () => {
+    console.log('this.', this.state.query)
+    if ((this.state.count % 5) === 0) {
+      this.setState({
+        viewInput: !this.state.viewInput,
+        count: this.state.count + 1
+      })
+    } else {
+      this.setState({count: this.state.count + 1})
+    }
+  }
+
+  toggleSurvey1 = (index) => {
+    if (index > 6) {
       this.setState({
         surveyComplete: true,
-        surveyVisible: !this.state.surveyVisible,
+        surveyVisible1: !this.state.surveyVisible1,
       });
     } else {
       this.setState({
-        surveyVisible: !this.state.surveyVisible,
+        surveyVisible1: !this.state.surveyVisible1,
       });
     }
+  }
+
+  toggleSurvey2 = (index) => {
+    if (index > 6) {
+      this.setState({
+        surveyComplete: true,
+        surveyVisible2: !this.state.surveyVisible2,
+      });
+    } else {
+      this.setState({
+        surveyVisible2: !this.state.surveyVisible2,
+      });
+    }
+  }
+
+  handleChange = (name, val) => {
+    this.setState({
+      ...this.state,
+      [name]: val,
+    });
   }
 
   complete() {
@@ -79,8 +116,13 @@ class RecipeListing extends React.Component {
           toggleModal={this.toggleModal}
         />
         <SurveyModal 
-          visible={this.state.surveyVisible}
-          toggleSurvey={this.toggleSurvey}
+          visible={this.state.surveyVisible1}
+          toggleSurvey={this.toggleSurvey1}
+        />
+        <SurveyModal 
+          visible={this.state.surveyVisible2}
+          toggleSurvey={this.toggleSurvey2}
+          query={this.state.query}
         />
         <Content>
           {
@@ -101,21 +143,34 @@ class RecipeListing extends React.Component {
                   title={'Caffeine'}
                   text={'Joined April 5th, 2018'}
                   active={true}
-                  move={this.toggleSurvey}
+                  move={this.toggleSurvey1}
                 />
                 <Text style={{color: '#6A6A6A', margin: 20}}>Join another Study</Text>
                 <StudyCard
                   title={'Lifestyle Observational'}
                   text={'Learn about how your lifestyle impacts your health'}
                   active={false}
-                  move={() => this.toggleSurvey()}
+                  move={this.toggleSurvey2}
                 />
                 <StudyCard
                   title={'Self-Guided Weight Loss Study'}
                   text={'Find a weight loss program tailored to you'}
                   active={false}
-                  move={() => this.toggleSurvey()}
+                  move={() => this.toggleQuery()}
                 />
+                {
+                  this.state.viewInput ? 
+                  <Item stackedLabel>
+                    <Label>Query</Label>
+                    <Input
+                      autoCapitalize={'none'}
+                      value={this.state.query}
+                      onChangeText={v => this.handleChange('query', v)}
+                    />
+                  </Item>
+                  : 
+                    null
+                }
               </View>
           }
           

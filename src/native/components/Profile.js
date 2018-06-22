@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { Container, Content, List, ListItem, Body, Left, Text, Icon } from 'native-base';
+import { Container, Content, List, ListItem, Body, Left, Text, Icon, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import Header from './Header';
 
@@ -23,7 +23,14 @@ const Profile = ({ member, logout }) => (
                 <Icon name="person-add" />
               </Left>
               <Body>
-                <Text>Update My Profile</Text>
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="john@doe.corp"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
               </Body>
             </ListItem>
             <ListItem onPress={logout} icon>
@@ -43,7 +50,14 @@ const Profile = ({ member, logout }) => (
                 content="Please login to gain extra access"
               />
             </Content>
-
+            <ListItem onPress={Actions.updateProfile} icon>
+              <Left>
+                <Icon name="person-add" />
+              </Left>
+              <Body>
+                <Text>Update Profile</Text>
+              </Body>
+            </ListItem>
             <ListItem onPress={Actions.login} icon>
               <Left>
                 <Icon name="power" />

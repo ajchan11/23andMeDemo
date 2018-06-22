@@ -160,6 +160,7 @@ export function resetPassword(formData) {
 export function updateProfile(formData) {
   const {
     email,
+    query,
     password,
     password2,
     firstName,

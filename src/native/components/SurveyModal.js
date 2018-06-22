@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Modal, TouchableOpacity, StyleSheet, Dimensions, Image, Picker, PickerIOS, ScrollView, Animated, PanResponder, TouchableWithoutFeedback } from 'react-native';
+import { View, Modal, TouchableOpacity, StyleSheet, Dimensions, Image, Picker, PickerIOS, ScrollView, Animated, PanResponder, WebView } from 'react-native';
 import { Container, Header, Left, Body, Right, Button, Icon, Title, Text } from 'native-base';
 import Carousel from './Carousel'
 import Colors from '../../../native-base-theme/variables/commonColor';
@@ -62,7 +62,7 @@ class SurveyModal extends React.Component {
           if (this.state.activePage != 0 && !this.props.visible) {
               this.setIndex(0)
           }
-          console.log('hi',this.state.pan.x)
+          console.log('query', this.props.query)
       }
 
       componentWillMount() {
@@ -103,7 +103,6 @@ class SurveyModal extends React.Component {
       toggleRadio(survey, index) {
           if (survey == 'sleep') {
             this.setState({sleep: index})
-            console.log("New", this.state.sleep)
           }
           if (survey == 'productivity') {
             this.setState({productivity: index})
@@ -111,8 +110,8 @@ class SurveyModal extends React.Component {
       }
 
       setIndex(index) {
-          if (index > 5) {
-            this.props.toggleSurvey(6)
+          if (index > 6) {
+            this.props.toggleSurvey(7)
           } else {
             this.setState({activePage: index})
           }
@@ -179,7 +178,6 @@ class SurveyModal extends React.Component {
       selectPicker(itemValue, type) {
             let hi = {}
             hi[`active${type}`] = itemValue
-            console.log(hi, 'hi')
             this.setState(hi)
             setTimeout(() => {
                 this.togglePicker(type)
@@ -246,9 +244,11 @@ class SurveyModal extends React.Component {
 
       render() {
         let {activeDate, activeQ1, activeQ2, activeD1, activeD2, caffeineTime, pickerDate, pickerQuantity, pickerDrink, visibleDate, visibleD1, visibleD2, visibleQ1, visibleQ2, sleepTime, wakeTime} = this.state
-        let {visible, toggleSurvey} = this.props
+        let {visible, toggleSurvey, query} = this.props
+        console.log('query', query)
+        let site = query ? `/query=${query}` : 'neato'
+        console.log('site', site)
         let { pan, scale } = this.state;
-        console.log(pan.x)
 
         // Calculate the x and y transform from the pan value
         let [translateX, translateY] = [pan.x, pan.y];
@@ -291,6 +291,16 @@ class SurveyModal extends React.Component {
                     activePage={this.state.activePage}
                 >
                     <View style={styles.container}>
+                        <WebView
+                            source={{uri: `http://178.128.178.134:3000/view/${site}`}}
+                        />
+                        <View style={styles.buttonBox}>
+                            <Button style={styles.success} block light disabled={false} onPress={() =>this.setIndex(1)}>
+                                <Text style={styles.successText}>Proceed to Survey</Text>
+                            </Button>
+                        </View>
+                    </View>
+                    <View style={styles.container}>
                         <View style={styles.question}>
                             <Text style={styles.questionText}>How much caffeine did you drink</Text>
                             <TouchableOpacity style={styles.dropdown} onPress={() => this.togglePicker('Date')}>
@@ -310,7 +320,7 @@ class SurveyModal extends React.Component {
                             </View>
                         </View>
                         <View style={styles.buttonBox}>
-                            <Button style={styles.success} block light disabled={false} onPress={() =>this.setIndex(1)}>
+                            <Button style={styles.success} block light disabled={false} onPress={() =>this.setIndex(2)}>
                                 <Text style={styles.successText}>Continue</Text>
                             </Button>
                         </View>
@@ -323,7 +333,7 @@ class SurveyModal extends React.Component {
                             {this.renderRadio('sleep')}
                         </View>
                         <View style={styles.buttonBox}>
-                            <Button style={styles.success} block light onPress={() =>this.setIndex(2)}>
+                            <Button style={styles.success} block light onPress={() =>this.setIndex(3)}>
                                 <Text style={styles.successText}>Continue</Text>
                             </Button>
                         </View>
@@ -336,7 +346,7 @@ class SurveyModal extends React.Component {
                             {this.renderRadio('productivity')}
                         </View>
                         <View style={styles.buttonBox}>
-                            <Button style={styles.success} block light onPress={() =>this.setIndex(3)}>
+                            <Button style={styles.success} block light onPress={() =>this.setIndex(4)}>
                                 <Text style={styles.successText}>Continue</Text>
                             </Button>
                         </View>
@@ -358,7 +368,7 @@ class SurveyModal extends React.Component {
                             <Text style={styles.radioCenter}>before bed</Text>
                         </View>
                         <View style={styles.buttonBox}>
-                            <Button style={styles.success} block light onPress={() =>this.setIndex(4)}>
+                            <Button style={styles.success} block light onPress={() =>this.setIndex(5)}>
                                 <Text style={styles.successText}>Continue</Text>
                             </Button>
                         </View>
@@ -381,7 +391,7 @@ class SurveyModal extends React.Component {
                             </View>
                         </View>
                         <View style={styles.buttonBox}>
-                            <Button style={styles.success} block light onPress={() =>this.setIndex(5)}>
+                            <Button style={styles.success} block light onPress={() =>this.setIndex(6)}>
                                 <Text style={styles.successText}>Continue</Text>
                             </Button>
                         </View>
@@ -405,7 +415,7 @@ class SurveyModal extends React.Component {
                             </View>
                         </View>
                         <View style={styles.buttonBox}>
-                            <Button style={styles.success} block light onPress={() =>this.setIndex(6)}>
+                            <Button style={styles.success} block light onPress={() =>this.setIndex(7)}>
                                 <Text style={styles.successText}>Continue</Text>
                             </Button>
                         </View>
