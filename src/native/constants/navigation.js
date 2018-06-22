@@ -18,7 +18,7 @@ export default {
     titleStyle: {
       color: 'white',
       alignSelf: 'center',
-      letterSpacing: 2,
+      letterSpacing: 0.6,
       fontSize: Colors.fontSizeBase,
     },
     backButtonTintColor: Colors.textColor,

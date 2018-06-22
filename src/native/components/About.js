@@ -4,7 +4,7 @@ import { Container, Content, Text, H1, H2, H3, Button, View} from 'native-base';
 import { Video } from 'expo';
 import Spacer from './Spacer';
 import PickerModal from './PickerModal';
-const options =['Sleep', 'Productivity', 'Exercise', 'Social Activity']
+const options =['Sleep', 'Productivity', 'Steps', 'Exercise', 'Social Activity']
 const sleepGif = require('../../images/sleep.gif')
 const productivityGif = require('../../images/productivity.gif')
 
@@ -50,6 +50,14 @@ s
       <Container style={{backgroundColor: 'white'}}>
         <Content padder>
           <View style={styles.row}>
+            <TouchableOpacity style={{flex: 1, justifyContent: 'center'}}>
+              <Image style={styles.drop1} source={require('../../images/caffeineDrop.png')}/>
+            </TouchableOpacity>
+            <TouchableOpacity style={{flex: 1, justifyContent: 'center'}}>
+              <Image style={styles.drop2} source={require('../../images/weekDrop.png')}/>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.row}>
             <TouchableOpacity style={styles.sleepBox} onPress={this.toggle}>
               <Text style={styles.sleep}>{picked}</Text>
               <Image style={styles.tri1} source={require('../../images/sleepTri.png')}/>
@@ -80,9 +88,8 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
-    paddingTop: 40,
+    paddingVertical: 10,
     paddingHorizontal: 20,
-    paddingBottom: 40,
   },
   tri1: {
     marginTop: 5,
@@ -97,7 +104,16 @@ const styles = StyleSheet.create({
     right: 0,
     width: 10, 
     resizeMode: 'contain',
-  }, 
+  },
+  drop1: {
+    width: 150,
+    resizeMode: 'contain',
+  },
+  drop2: {
+    marginLeft: 60,
+    width: 90,
+    resizeMode: 'contain',
+  },
   sleep: {
     color: '#5bc5e2',
     fontSize: 24,
