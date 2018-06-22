@@ -11,7 +11,7 @@
     "privacy": "public",
     "ios": {
       "bundleIdentifier": "com.swensonhe.23me",
-      "buildNumber": "3"
+      "buildNumber": "4"
     },
     "android": {
       "package": "com.swensonhe.me23"

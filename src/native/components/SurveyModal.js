@@ -245,9 +245,7 @@ class SurveyModal extends React.Component {
       render() {
         let {activeDate, activeQ1, activeQ2, activeD1, activeD2, caffeineTime, pickerDate, pickerQuantity, pickerDrink, visibleDate, visibleD1, visibleD2, visibleQ1, visibleQ2, sleepTime, wakeTime} = this.state
         let {visible, toggleSurvey, query} = this.props
-        console.log('query', query)
-        let site = query ? `/query=${query}` : 'neato'
-        console.log('site', site)
+        let site = query ? `custom/query=${query}` : 'default'
         let { pan, scale } = this.state;
 
         // Calculate the x and y transform from the pan value
