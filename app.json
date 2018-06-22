@@ -10,7 +10,8 @@
     "icon": "src/images/app-icon.png",
     "privacy": "public",
     "ios": {
-      "bundleIdentifier": "com.swensonhe.23me"
+      "bundleIdentifier": "com.swensonhe.23me",
+      "buildNumber": "2"
     },
     "android": {
       "package": "com.swensonhe.me23"
